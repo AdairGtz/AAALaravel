@@ -1,0 +1,20 @@
+language: php
+
+dist:windows
+
+php:
+  - 7.3
+
+services: 
+  - mysql
+
+before_script:
+  - cp .env.example
+  - mysql -e "create database laravel"
+  - composer selft-update
+  - composer install --no-interaction --prefer-source
+  - php artisan key:generated
+  - php artisan migrate
+
+script: 
+  - vendor/bin/phpunit
