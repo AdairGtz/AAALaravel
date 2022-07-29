@@ -1,6 +1,6 @@
 language: php
 
-dist:windows
+dist: windows
 
 php:
   - 7.3
