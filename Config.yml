@@ -1,23 +1,19 @@
-language: php
 
-dist: 
-  - bionic
-  - linux
-  - windows
+version: 2
+jobs: 
+build:
+  working_directory: /tmp
+  steps:
+    - run:
+        name: Creating Dummy Artifacts
+        command: |
+          echo "my artifact file" > /tmp/art-1;
+          mkdir /tmp/artifacts;
+          echo "my artifact files in a dir" > /tmp/artifacts/art-2;
 
-php:
-  - 7.3
+    - store_artifacts:
+        path: /tmp/art-1
+        destination: artifact-file
 
-services: 
-  - mysql
-
-before_script:
-  - cp .env.example
-  - mysql -e "create database laravel"
-  - composer selft-update
-  - composer install --no-interaction --prefer-source
-  - php artisan key:generated
-  - php artisan migrate
-
-script: 
-  - vendor/bin/phpunit
+    - store_artifacts:
+        path: /tmp/artifacts
